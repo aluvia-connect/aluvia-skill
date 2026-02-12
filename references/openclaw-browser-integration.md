@@ -200,4 +200,4 @@ Refs are invalid after navigation; take a new snapshot and use new refs.
 ## References
 
 - **OpenClaw browser**: [Browser (OpenClaw-managed)](https://docs.openclaw.ai/tools/browser)
-- **Aluvia**: `{baseDir}/references/command-reference.md`, `{baseDir}/references/workflows.md`, `{baseDir}/references/troubleshooting.md`
+- **Aluvia**: [command-reference.md](https://github.com/aluvia-connect/aluvia-skill/blob/main/references/command-reference.md), [workflows.md](https://github.com/aluvia-connect/aluvia-skill/blob/main/references/workflows.md), [troubleshooting.md](https://github.com/aluvia-connect/aluvia-skill/blob/main/references/troubleshooting.md)

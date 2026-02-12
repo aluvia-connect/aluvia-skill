@@ -16,7 +16,7 @@ metadata:
 
 ## The Problem
 
-Your OpenClaw agent get blocked becuase anti-bot systems are built to stop cloud-based agent/bot traffic with datacenter IP addresses. You get 403 Forbidden, CAPTCHAs, 429 rate limits, IP bans, empty responses.
+Your OpenClaw agent gets blocked because anti-bot systems are built to stop cloud-based agent/bot traffic with datacenter IP addresses. You get 403 Forbidden, CAPTCHAs, 429 rate limits, IP bans, empty responses.
 
 ## The Solution
 
@@ -115,6 +115,8 @@ The start command returns:
 
 Save `browserSession` — you need it for every subsequent command.
 
+**If the agent uses the OpenClaw browser tool:** create a remote CDP profile with this session's `cdpUrl` and use that profile for all browser commands. See [OpenClaw browser integration](https://github.com/aluvia-connect/aluvia-skill/blob/main/references/openclaw-browser-integration.md).
+
 ### 3. Monitor for blocks
 
 Check session status including the latest block detection result:
@@ -178,8 +180,8 @@ Follow these rules in every interaction:
 
 For detailed command specs, workflows, and troubleshooting:
 
-- **Command reference:** `{baseDir}/references/command-reference.md` — every flag, output schema, and error for all 11 commands
-- **Workflow recipes:** `{baseDir}/references/workflows.md` — step-by-step patterns for common scenarios
-- **Troubleshooting:** `{baseDir}/references/troubleshooting.md` — error messages, block score interpretation, signal names, recovery steps
-- **agent-browser integration:** `{baseDir}/references/agent-browser-integration.md` — using Aluvia CDP with [agent-browser](https://www.npmjs.com/package/agent-browser) CLI
-- **OpenClaw browser integration:** `{baseDir}/references/openclaw-browser-integration.md` — using Aluvia CDP with [OpenClaw browser tool](https://docs.openclaw.ai/tools/browser)
+- **Command reference:** [references/command-reference.md](https://github.com/aluvia-connect/aluvia-skill/blob/main/references/command-reference.md) — every flag, output schema, and error for all 11 commands
+- **Workflow recipes:** [references/workflows.md](https://github.com/aluvia-connect/aluvia-skill/blob/main/references/workflows.md) — step-by-step patterns for common scenarios
+- **Troubleshooting:** [references/troubleshooting.md](https://github.com/aluvia-connect/aluvia-skill/blob/main/references/troubleshooting.md) — error messages, block score interpretation, signal names, recovery steps
+- **agent-browser integration:** [references/agent-browser-integration.md](https://github.com/aluvia-connect/aluvia-skill/blob/main/references/agent-browser-integration.md) — using Aluvia CDP with [agent-browser](https://www.npmjs.com/package/agent-browser) CLI
+- **OpenClaw browser integration:** [references/openclaw-browser-integration.md](https://github.com/aluvia-connect/aluvia-skill/blob/main/references/openclaw-browser-integration.md) — using Aluvia CDP with [OpenClaw browser tool](https://docs.openclaw.ai/tools/browser)
