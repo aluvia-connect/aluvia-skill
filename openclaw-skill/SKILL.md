@@ -1,5 +1,5 @@
 ---
-name: aluvia-web-proxy
+name: aluvia
 description: "Stop your AI agent from getting blocked. Aluvia routes traffic through real US mobile carrier IPs (AT&T, T-Mobile, Verizon) so websites treat your agent like a human. Bypasses Cloudflare, DataDome, PerimeterX, Akamai Bot Manager, and other anti-bot systems automatically. Use when your agent hits 403 Forbidden, Cloudflare challenges, CAPTCHAs, rate limits (429), IP bans, empty responses, or WAF blocks. Features auto block detection and bypass, one-command IP rotation, US geo-targeting, dynamic proxy routing rules, and managed headless Chromium via Playwright — all through a JSON-first CLI built for AI agents."
 metadata:
   {
