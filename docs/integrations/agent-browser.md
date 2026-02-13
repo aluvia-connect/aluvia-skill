@@ -120,4 +120,4 @@ When using Aluvia, do not use `--proxy` in agent-browser; proxying is handled by
 ## References
 
 - **agent-browser**: [npm](https://www.npmjs.com/package/agent-browser), [GitHub](https://github.com/vercel-labs/agent-browser)
-- **Aluvia**: [command-reference.md](https://github.com/aluvia-connect/aluvia-skill/blob/main/references/command-reference.md), [workflows.md](https://github.com/aluvia-connect/aluvia-skill/blob/main/references/workflows.md), [troubleshooting.md](https://github.com/aluvia-connect/aluvia-skill/blob/main/references/troubleshooting.md)
+- **Aluvia**: [command-reference.md](https://github.com/aluvia-connect/aluvia-skills/blob/main/docs/command-reference.md), [workflows.md](https://github.com/aluvia-connect/aluvia-skills/blob/main/docs/workflows.md), [troubleshooting.md](https://github.com/aluvia-connect/aluvia-skills/blob/main/docs/troubleshooting.md)

@@ -117,6 +117,6 @@ aluvia session close --browser-session my-task
 
 For detailed command specs, workflows, and troubleshooting:
 
-- **Command reference:** [../aluvia/references/command-reference.md](../aluvia/references/command-reference.md) — every flag, output schema, and error for all commands
-- **Workflow recipes:** [../aluvia/references/workflows.md](../aluvia/references/workflows.md) — step-by-step patterns for common scenarios
-- **Troubleshooting:** [../aluvia/references/troubleshooting.md](../aluvia/references/troubleshooting.md) — error messages, block score interpretation, recovery steps
+- **Command reference:** [docs/command-reference.md](https://github.com/aluvia-connect/aluvia-skills/blob/main/docs/command-reference.md) — every flag, output schema, and error for all commands
+- **Workflow recipes:** [docs/workflows.md](https://github.com/aluvia-connect/aluvia-skills/blob/main/docs/workflows.md) — step-by-step patterns for common scenarios
+- **Troubleshooting:** [docs/troubleshooting.md](https://github.com/aluvia-connect/aluvia-skills/blob/main/docs/troubleshooting.md) — error messages, block score interpretation, recovery steps
