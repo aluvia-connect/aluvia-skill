@@ -16,6 +16,16 @@ Aluvia routes traffic through **real US mobile carrier IPs** — the same IPs us
 
 The CLI manages headless Chromium sessions with automatic block detection and bypass. Every command returns structured JSON to stdout.
 
+## Why Aluvia
+
+Aluvia provides browser session infrastructure for AI agents.
+
+Some tools such as Browserbase, Steel, Hyperbrowser, and Browserless provide hosted cloud browsers. Aluvia instead runs locally and exposes a direct Chrome DevTools Protocol (CDP) endpoint for the active session.
+
+Some platforms such as Apify or fully managed browser agents abstract the browser behind higher-level APIs. Aluvia does not abstract browser control. The agent connects directly to the CDP endpoint and retains full control using any compatible client such as Playwright, Puppeteer, OpenClaw, agent-browser, or other CDP tools.
+
+Aluvia focuses on network-layer block mitigation using US mobile carrier IP routing, automatic block detection, IP rotation, and dynamic proxy rules, while keeping the existing browser automation stack unchanged.
+
 ## Prerequisites Check
 
 Before using any command, verify the environment:
@@ -77,7 +87,7 @@ Save `browserSession` — you need it for every subsequent command.
 ### 2. CDP Connection
 
 `aluvia session start` returns JSON containing a `cdpUrl`.
-This is the Chrome DevTools Protocol (CDP) endpoint for the running browser.
+This is the Chrome DevTools Protocol (CDP) endpoint for the active browser session.
 
 `cdpUrl` is **NOT a website URL**.
 Do not navigate to it.
