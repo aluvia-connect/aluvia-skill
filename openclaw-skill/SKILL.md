@@ -161,6 +161,115 @@ Rules are appended to existing rules (not replaced).
 aluvia session close --browser-session my-task
 ```
 
+---
+
+## Using the CDP URL
+
+After `session start`, the returned `cdpUrl` gives your agent direct access to the running Chromium browser via the Chrome DevTools Protocol. Use it with Playwright to script the browser programmatically.
+
+### The Golden Rule
+
+Aluvia pre-creates the browser context with all proxy routing, stealth settings, and block detection already configured. **Always reuse that context — never create a new one.**
+
+```js
+// ✅ CORRECT — reuse Aluvia's pre-configured context
+const context = browser.contexts()[0];
+const page = context.pages()[0] ?? await context.newPage();
+
+// ❌ WRONG — creates a plain context that bypasses Aluvia's proxy and block detection
+const context = await browser.newContext();
+```
+
+### Connect with Playwright (recommended)
+
+```js
+import { chromium } from 'playwright';
+
+// 1. Start session via CLI and parse cdpUrl from JSON output
+const cdpUrl = 'http://127.0.0.1:38209'; // from session start output
+
+// 2. Connect to the running Aluvia browser
+const browser = await chromium.connectOverCDP(cdpUrl);
+
+// 3. Reuse Aluvia's pre-configured context (has proxy + block detection)
+const context = browser.contexts()[0];
+const page = context.pages()[0] ?? await context.newPage();
+
+// 4. Navigate and automate normally
+await page.goto('https://example.com');
+const title = await page.title();
+console.log(title);
+
+// 5. Disconnect (does NOT close the Aluvia session — CLI manages that)
+await browser.close();
+```
+
+### Full end-to-end example (Node.js)
+
+```js
+import { execSync } from 'child_process';
+import { chromium } from 'playwright';
+
+// 1. Start Aluvia session
+const raw = execSync(
+  'aluvia session start https://example.com --auto-unblock --browser-session my-task',
+  { env: process.env }
+).toString();
+const { cdpUrl, browserSession } = JSON.parse(raw);
+
+let browser;
+try {
+  // 2. Connect Playwright to the Aluvia browser
+  browser = await chromium.connectOverCDP(cdpUrl);
+  const context = browser.contexts()[0];           // ✅ reuse Aluvia's context
+  const page = context.pages()[0] ?? await context.newPage();
+
+  // 3. Do your work
+  await page.goto('https://example.com');
+  const heading = await page.textContent('h1');
+  console.log('Heading:', heading);
+
+} finally {
+  // 4. Disconnect Playwright (does not kill the browser process)
+  if (browser) await browser.close();
+
+  // 5. Always close the Aluvia session via CLI
+  execSync(`aluvia session close --browser-session ${browserSession}`, { env: process.env });
+}
+```
+
+### Handling blocks mid-session
+
+If your Playwright script encounters a block (empty page, CAPTCHA, redirect to challenge page), rotate the IP and reload:
+
+```js
+// Detect a block manually
+const content = await page.content();
+const isBlocked = content.includes('Access Denied') || content.includes('cf-challenge');
+
+if (isBlocked) {
+  // Rotate to a fresh mobile IP
+  execSync(`aluvia session rotate-ip --browser-session ${browserSession}`);
+
+  // Reload the page through the new IP
+  await page.reload({ waitUntil: 'networkidle' });
+}
+```
+
+With `--auto-unblock` enabled, Aluvia handles this automatically on each navigation — you only need manual rotation for in-page XHR/fetch requests that bypass full page loads.
+
+### CDP URL quick-reference
+
+| Property | Value | Notes |
+|---|---|---|
+| **Format** | `http://127.0.0.1:<PORT>` | Local HTTP (not WSS) — Playwright handles the upgrade |
+| **Source** | `session start` JSON → `cdpUrl` field | Also available via `session get` |
+| **Reuse** | ✅ Connect/disconnect multiple times | Session stays alive until `session close` |
+| **Context** | Always `browser.contexts()[0]` | Never `browser.newContext()` |
+| **Playwright disconnect** | `browser.close()` | Safe — disconnects client, does not kill browser |
+
+---
+
 ## Safety Constraints
 
 Follow these rules in every interaction:
@@ -175,6 +284,7 @@ Follow these rules in every interaction:
 8. **Use named sessions.** Always pass `--browser-session <name>` to avoid ambiguity errors when multiple sessions run.
 9. **Clean up on failure.** If any step fails, close the session before retrying or aborting. Use `session close --all` as a last resort.
 10. **One session per task.** Do not start multiple sessions unless the task explicitly requires parallel browsing of different sites.
+11. **Never call `browser.newContext()`.** Always reuse `browser.contexts()[0]` to preserve Aluvia's proxy routing and block detection configuration.
 
 ## References
 
