@@ -83,9 +83,9 @@ This is the Chrome DevTools Protocol (CDP) endpoint for the running browser.
 Do not navigate to it.
 
 - Check available tools for a CDP-compatible client (a Playwright or Puppeteer client that supports attaching to an existing CDP endpoint).
-- If available, attach the tool to the browser using `cdpUrl`.
+- If available, attach the tool to the browser using `cdpUrl`. Only use tools that support CDP attach; skip tools that launch a new browser.
 - Reuse the existing browser context and page.
-- If no CDP-compatible tool is available, connect programmatically using Playwright.
+- If no CDP-compatible tool is available, connect programmatically using Playwright:
 
 ```ts
 import { chromium } from "playwright";
