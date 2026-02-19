@@ -58,9 +58,44 @@ Always use `--browser-session` to name your session. Always use `--auto-unblock`
 aluvia session start https://example.com --auto-unblock --browser-session my-task
 ```
 
-The start command returns JSON with `browserSession`, `pid`, `cdpUrl`, `connectionId`, `blockDetection`, and `autoUnblock` fields. Save `browserSession` for subsequent commands.
+The start command returns:
 
-### 2. Monitor for blocks
+```json
+{
+  "browserSession": "my-task",
+  "pid": 12345,
+  "startUrl": "https://example.com",
+  "cdpUrl": "http://127.0.0.1:38209",
+  "connectionId": 3449,
+  "blockDetection": true,
+  "autoUnblock": true
+}
+```
+
+Save `browserSession` — you need it for every subsequent command.
+
+### 2. CDP Connection
+
+`aluvia session start` returns JSON containing a `cdpUrl`.
+This is the Chrome DevTools Protocol (CDP) endpoint for the running browser.
+
+`cdpUrl` is **NOT a website URL**.
+Do not navigate to it.
+
+- Check available tools for a CDP-compatible client (a Playwright or Puppeteer client that supports attaching to an existing CDP endpoint).
+- If available, attach the tool to the browser using `cdpUrl`.
+- Reuse the existing browser context and page.
+- If no CDP-compatible tool is available, connect programmatically using Playwright.
+
+```ts
+import { chromium } from "playwright";
+
+const browser = await chromium.connectOverCDP(cdpUrl);
+const context = browser.contexts()[0];
+const page = context.pages()[0];
+```
+
+### 3. Monitor for blocks
 
 ```bash
 aluvia session get --browser-session my-task
@@ -68,7 +103,7 @@ aluvia session get --browser-session my-task
 
 Check the `lastDetection` object. Block scores: `blocked` >= 0.7, `suspected` >= 0.4, `clear` < 0.4. With `--auto-unblock`, blocks are remediated automatically.
 
-### 3. Rotate IP if blocked
+### 4. Rotate IP if blocked
 
 ```bash
 aluvia session rotate-ip --browser-session my-task
@@ -76,13 +111,13 @@ aluvia session rotate-ip --browser-session my-task
 
 Returns a new `sessionId` (UUID). The next request uses a fresh IP.
 
-### 4. Set geo-targeting if needed
+### 5. Set geo-targeting if needed
 
 ```bash
 aluvia session set-geo us_ca --browser-session my-task
 ```
 
-### 5. Expand routing rules
+### 6. Expand routing rules
 
 If navigating to new domains that need proxying:
 
@@ -92,7 +127,7 @@ aluvia session set-rules "newsite.com,api.newsite.com" --browser-session my-task
 
 Rules are appended to existing rules (not replaced).
 
-### 6. Close the session when done
+### 7. Close the session when done
 
 **Always close your session.** Sessions consume resources until explicitly closed.
 
