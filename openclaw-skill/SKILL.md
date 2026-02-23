@@ -37,7 +37,7 @@ Aluvia's proxies + Playwright + Chrome stack: detects website blocks and routes 
 ## Installation
 
 ```bash
-npm install -g @aluvia/sdk
+npm install -g @aluvia/mcp
 ```
 
 Or use directly with npx (no install needed):
