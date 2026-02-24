@@ -1,5 +1,5 @@
 ---
-name: aluvia-cursor
+name: aluvia
 description: "Unblock web requests using Aluvia mobile carrier proxies. Use when hitting 403 Forbidden, Cloudflare challenges, CAPTCHAs, rate limits (429), IP bans, WAF blocks, empty responses, or when websites detect and block automated traffic. Routes traffic through real US mobile carrier IPs (AT&T, T-Mobile, Verizon) so websites treat your agent like a human."
 ---
 
