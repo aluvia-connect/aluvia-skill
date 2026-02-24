@@ -41,7 +41,7 @@ aluvia help --json
 node -e "require('playwright')"
 ```
 
-If the API key is missing, tell the user to set `ALUVIA_API_KEY` from the [Aluvia dashboard](https://dashboard.aluvia.io). If `aluvia` is not found, run `npm install @aluvia/mcp`. If Playwright is missing, run `npm install playwright`.
+If the API key is missing, tell the user to set `ALUVIA_API_KEY` from the [Aluvia dashboard](https://dashboard.aluvia.io). If `aluvia` is not found, run `npm install @aluvia/cli`. If Playwright is missing, run `npm install playwright`.
 
 ## Core Commands Quick Reference
 
